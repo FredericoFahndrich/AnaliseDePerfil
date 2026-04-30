@@ -1,208 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Início - Mapeamento de Perfil</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 560px;
-      background: #ffffff;
-      padding: 34px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
-    }
-
-    h1 {
-      margin-top: 0;
-      color: #1f3a5f;
-      text-align: center;
-    }
-
-    p {
-      line-height: 1.5;
-      text-align: center;
-      color: #444;
-      margin-bottom: 26px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-      color: #333;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-sizing: border-box;
-      font-size: 15px;
-      margin-bottom: 18px;
-    }
-
-    input[type="text"]:focus {
-      outline: none;
-      border-color: #1f3a5f;
-      box-shadow: 0 0 0 2px rgba(31, 58, 95, 0.15);
-    }
-
-    button {
-      width: 100%;
-      background: #1f3a5f;
-      color: #ffffff;
-      border: none;
-      padding: 14px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 17px;
-      font-weight: bold;
-      margin-top: 8px;
-    }
-
-    button:hover {
-      background: #2d5284;
-    }
-
-    .alerta {
-      display: none;
-      background: #fff3cd;
-      border-left: 5px solid #f0ad4e;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      color: #664d03;
-      line-height: 1.4;
-    }
-
-    .campo-obrigatorio {
-      color: #c62828;
-    }
-
-    .rodape {
-      font-size: 13px;
-      color: #666;
-      margin-top: 22px;
-      text-align: center;
-      border-top: 1px solid #ddd;
-      padding-top: 14px;
-      line-height: 1.4;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Início - Mapeamento de Perfil</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;color:#222}.container{width:100%;max-width:560px;background:#fff;padding:34px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.1)}h1{margin-top:0;color:#1f3a5f;text-align:center}p{text-align:center;line-height:1.5;color:#444;margin-bottom:26px}label{display:block;font-weight:bold;margin-bottom:6px}input{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box;font-size:15px;margin-bottom:18px}input:focus{outline:none;border-color:#1f3a5f;box-shadow:0 0 0 2px rgba(31,58,95,.15)}button{width:100%;background:#1f3a5f;color:#fff;border:0;padding:14px 20px;border-radius:8px;cursor:pointer;font-size:17px;font-weight:bold;margin-top:8px}button:hover{background:#2d5284}.alerta{display:none;background:#fff3cd;border-left:5px solid #f0ad4e;padding:12px;border-radius:8px;margin-bottom:18px;color:#664d03}.obrigatorio{color:#c62828}.rodape{font-size:13px;color:#666;margin-top:22px;text-align:center;border-top:1px solid #ddd;padding-top:14px;line-height:1.4}
+</style>
 </head>
 <body>
-  <main class="container">
-    <h1>Mapeamento de Perfil</h1>
-
-    <p>
-      Informe os dados abaixo para iniciar o questionário. Essas informações serão usadas automaticamente nas próximas páginas do teste.
-    </p>
-
-    <div id="alerta" class="alerta"></div>
-
-    <form id="formDados" onsubmit="iniciarQuestionario(event)">
-      <label for="nome">Nome <span class="campo-obrigatorio">*</span></label>
-      <input
-        type="text"
-        id="nome"
-        name="nome"
-        placeholder="Digite seu nome completo"
-        autocomplete="name"
-        required
-      />
-
-      <label for="empresa">Empresa <span class="campo-obrigatorio">*</span></label>
-      <input
-        type="text"
-        id="empresa"
-        name="empresa"
-        placeholder="Digite o nome da empresa"
-        autocomplete="organization"
-        required
-      />
-
-      <label for="cargo">Cargo <span class="campo-obrigatorio">*</span></label>
-      <input
-        type="text"
-        id="cargo"
-        name="cargo"
-        placeholder="Digite seu cargo"
-        autocomplete="organization-title"
-        required
-      />
-
-      <button type="submit">Iniciar</button>
-    </form>
-
-    <div class="rodape">
-      Campos marcados com <span class="campo-obrigatorio">*</span> são obrigatórios.<br>
-      Os dados ficam salvos temporariamente no navegador para preencher as próximas etapas do questionário.
-    </div>
-  </main>
-
-  <script>
-    function carregarDadosExistentes() {
-      const dados = JSON.parse(localStorage.getItem("dadosParticipante") || "{}");
-
-      if (dados.nome) {
-        document.getElementById("nome").value = dados.nome;
-      }
-
-      if (dados.empresa) {
-        document.getElementById("empresa").value = dados.empresa;
-      }
-
-      if (dados.cargo) {
-        document.getElementById("cargo").value = dados.cargo;
-      }
-    }
-
-    function iniciarQuestionario(event) {
-      event.preventDefault();
-
-      const nome = document.getElementById("nome").value.trim();
-      const empresa = document.getElementById("empresa").value.trim();
-      const cargo = document.getElementById("cargo").value.trim();
-      const alerta = document.getElementById("alerta");
-
-      alerta.style.display = "none";
-      alerta.innerText = "";
-
-      if (!nome || !empresa || !cargo) {
-        alerta.innerText = "Preencha obrigatoriamente nome, empresa e cargo antes de iniciar.";
-        alerta.style.display = "block";
-        return;
-      }
-
-      const dadosParticipante = {
-        nome: nome,
-        empresa: empresa,
-        cargo: cargo,
-        dataInicio: new Date().toLocaleString("pt-BR")
-      };
-
-      localStorage.setItem("dadosParticipante", JSON.stringify(dadosParticipante));
-
-      window.location.href = "perfil.html";
-    }
-
-    carregarDadosExistentes();
-  </script>
+<main class="container">
+<h1>Mapeamento de Perfil</h1>
+<p>Informe os dados abaixo para iniciar o questionário. Essas informações serão usadas automaticamente nas próximas páginas.</p>
+<div id="alerta" class="alerta"></div>
+<form onsubmit="iniciarQuestionario(event)">
+<label for="nome">Nome <span class="obrigatorio">*</span></label>
+<input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" autocomplete="name" required>
+<label for="empresa">Empresa <span class="obrigatorio">*</span></label>
+<input type="text" id="empresa" name="empresa" placeholder="Digite o nome da empresa" autocomplete="organization" required>
+<label for="cargo">Cargo <span class="obrigatorio">*</span></label>
+<input type="text" id="cargo" name="cargo" placeholder="Digite seu cargo" autocomplete="organization-title" required>
+<button type="submit">Iniciar</button>
+</form>
+<div class="rodape">Campos marcados com <span class="obrigatorio">*</span> são obrigatórios.<br>Os dados serão salvos temporariamente no navegador.</div>
+</main>
+<script>
+function carregarDadosExistentes(){const d=JSON.parse(localStorage.getItem('dadosParticipante')||'{}');if(d.nome)nome.value=d.nome;if(d.empresa)empresa.value=d.empresa;if(d.cargo)cargo.value=d.cargo;}
+function iniciarQuestionario(e){e.preventDefault();const n=nome.value.trim(), emp=empresa.value.trim(), c=cargo.value.trim();alerta.style.display='none';if(!n||!emp||!c){alerta.innerText='Preencha obrigatoriamente nome, empresa e cargo antes de iniciar.';alerta.style.display='block';return;}localStorage.setItem('dadosParticipante',JSON.stringify({nome:n,empresa:emp,cargo:c,dataInicio:new Date().toLocaleString('pt-BR')}));window.location.href='perfil.html';}
+carregarDadosExistentes();
+</script>
 </body>
 </html>
