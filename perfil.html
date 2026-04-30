@@ -1,1 +1,705 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise de Perfil - Atividade I</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1f3a5f;
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto;
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .intro {
+      background: #eef4fb;
+      border-left: 5px solid #1f3a5f;
+      padding: 16px;
+      margin-bottom: 24px;
+      border-radius: 8px;
+    }
+
+    .dados {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .question {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+
+    .question h3 {
+      color: #1f3a5f;
+      margin-bottom: 14px;
+    }
+
+    .option {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin: 8px 0;
+      line-height: 1.4;
+    }
+
+    .option input {
+      margin-top: 3px;
+    }
+
+    button {
+      background: #1f3a5f;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 8px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #2d5284;
+    }
+
+    .secondary {
+      background: #666;
+    }
+
+    .secondary:hover {
+      background: #444;
+    }
+
+    .resultado {
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: 10px;
+      background: #eef8f0;
+      border-left: 5px solid #2e7d32;
+      display: none;
+    }
+
+    .alerta {
+      background: #fff3cd;
+      border-left: 5px solid #f0ad4e;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #1f3a5f;
+      color: white;
+    }
+
+    .perfil-destaque {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1f3a5f;
+    }
+
+    .rodape {
+      font-size: 13px;
+      color: #666;
+      margin-top: 24px;
+      border-top: 1px solid #ddd;
+      padding-top: 12px;
+    }
+
+    @media print {
+      button {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      main {
+        box-shadow: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Análise de Perfil - Atividade I</h1>
+    <p>Questionário de mapeamento comportamental com análise automática</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <strong>Instrução:</strong> para cada pergunta, escolha apenas uma alternativa. Ao final, clique em <strong>Próximo</strong> para enviar automaticamente o relatório por e-mail e avançar para a página de Âncoras de Carreira.
+    </section>
+
+    <section class="dados">
+      <div>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Digite o nome" />
+      </div>
+      <div>
+        <label for="empresa">Empresa</label>
+        <input type="text" id="empresa" placeholder="Digite a empresa" />
+      </div>
+      <div>
+        <label for="cargo">Cargo</label>
+        <input type="text" id="cargo" placeholder="Digite o cargo" />
+      </div>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <button type="button" onclick="proximaPagina()">Próximo</button>
+
+    <iframe name="envioEmailFrame" style="display: none;"></iframe>
+
+    <form id="emailForm" action="https://formsubmit.co/fae.mfg@gmail.com" method="POST" target="envioEmailFrame" style="display: none;">
+      <input type="hidden" name="_subject" value="Resultado da Análise de Perfil - Atividade I">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="Nome" id="emailNome">
+      <input type="hidden" name="Empresa" id="emailEmpresa">
+      <input type="hidden" name="Cargo" id="emailCargo">
+      <input type="hidden" name="Perfil predominante" id="emailPerfil">
+      <input type="hidden" name="Respostas selecionadas" id="emailRespostas">
+      <input type="hidden" name="Distribuição da pontuação" id="emailPontuacao">
+      <input type="hidden" name="Análise objetiva" id="emailAnalise">
+      <input type="hidden" name="Ações motivacionais recomendadas" id="emailAcoes">
+      <input type="hidden" name="Relatório completo" id="emailRelatorioCompleto">
+    </form>
+
+    <div id="alerta" class="alerta"></div>
+
+    <section id="resultado" class="resultado">
+      <h2>Resultado da Análise</h2>
+      <p><strong>Nome:</strong> <span id="resNome"></span></p>
+      <p><strong>Empresa:</strong> <span id="resEmpresa"></span></p>
+      <p><strong>Cargo:</strong> <span id="resCargo"></span></p>
+
+      <p>Perfil predominante:</p>
+      <p class="perfil-destaque" id="perfilPredominante"></p>
+
+      <h3>Distribuição das respostas</h3>
+      <div id="tabelaPontuacao"></div>
+
+      <h3>Análise objetiva</h3>
+      <p id="analiseTexto"></p>
+
+      <h3>Ações recomendadas para melhorar a motivação no trabalho</h3>
+      <ul id="acoesMotivacionais"></ul>
+    </section>
+
+    <p class="rodape">
+      Observação: esta página gera uma análise simplificada com finalidade educacional. O resultado não deve ser tratado como diagnóstico psicológico ou avaliação clínica.
+    </p>
+  </main>
+
+  <script>
+    const perguntas = [
+      {
+        titulo: "1) Em qual situação você se enquadra?",
+        opcoes: {
+          A: "Sinto minha vida como uma busca incessante daquilo que julgo perfeito.",
+          B: "Sou do tipo de pessoa que adora ser reconhecido(a) e bajulado(a).",
+          C: "Tenho compulsão pelo trabalho.",
+          D: "Tenho a sensação permanente de falta... simplesmente algo ainda não aconteceu na minha vida.",
+          E: "Gosto de estar sozinho(a), pensando, meditando no meu canto em silêncio.",
+          F: "Sou muito inseguro(a), tenho medo de qualquer situação nova ou daquelas que acho perigosas.",
+          G: "Sempre acho um significado positivo em tudo. Sou idealista e otimista.",
+          H: "Tenho dificuldades em aceitar opiniões contrárias às minhas.",
+          I: "Às vezes, protelo o que tenho para fazer de mais importante, inventando desculpas."
+        }
+      },
+      {
+        titulo: "2) Concordo que...",
+        opcoes: {
+          A: "Primeiro a obrigação, depois a diversão.",
+          B: "Toda a minha vida foi uma constante entrega de amor.",
+          C: "Gosto de criar uma imagem positiva de mim mesmo.",
+          D: "Sou extremamente sensível.",
+          E: "Ter que ir a uma festa é um sofrimento para mim, especialmente por ter que ouvir tanta bobagem.",
+          F: "Sempre demoro a concretizar algo, pois fico imaginando as possíveis consequências.",
+          G: "Adoro explorar territórios novos e viver novas experiências.",
+          H: "Para mim não existem obstáculos, sou capaz de qualquer esforço para conseguir o que quero.",
+          I: "Tenho procurado pensar mais em mim e no meu bem-estar, mas confesso que é difícil."
+        }
+      },
+      {
+        titulo: "3) Em geral...",
+        opcoes: {
+          A: "Meu dia a dia é tenso, cheio de cobranças e exigências.",
+          B: "Agradar aos outros é bom, porque desse modo recebo o que quero.",
+          C: "Tenho grandes dificuldades para expressar meus sentimentos.",
+          D: "Nada no presente me faz feliz: a lembrança do passado é muito forte.",
+          E: "Somente com pessoas do meu nível intelectual me sinto mais à vontade.",
+          F: "Minha imaginação é poderosa e me provoca uma grande ansiedade.",
+          G: "Sou uma pessoa muito versátil, sei fazer várias coisas diferentes.",
+          H: "A vida é uma luta constante; aparecem desafios e complicações, mas no fundo até gosto.",
+          I: "Demoro a fazer as coisas, mas tento fazê-las bem feitas."
+        }
+      },
+      {
+        titulo: "4) Sinto que...",
+        opcoes: {
+          A: "Estou sempre dizendo: eu tenho que... eu deveria...",
+          B: "Com jeitinho, consigo tudo o que quero.",
+          C: "Tenho grandes dificuldades para ficar quieto, meditando.",
+          D: "Não posso ser feliz em um mundo tão cego e insensível.",
+          E: "Gosto de ser reconhecido(a) pelos meus conhecimentos especializados.",
+          F: "Tomar decisões é algo que não gosto e tento evitar sempre que possível.",
+          G: "Considero-me uma pessoa muito criativa e audaciosa. Planejar me dá prazer; executar nem sempre.",
+          H: "Abraço com muita determinação as causas que considero justas e verdadeiras.",
+          I: "Estou sempre disposto a ajudar os outros."
+        }
+      },
+      {
+        titulo: "5) Percebo que...",
+        opcoes: {
+          A: "Se não pode ser bem feito, melhor não fazer.",
+          B: "Fico zangado(a) quando pessoas das quais espero reconhecimento me ignoram.",
+          C: "Quando fracasso, recupero-me rapidamente.",
+          D: "Ninguém compreende meus sentimentos.",
+          E: "Meu quarto é o único local da casa no qual posso ficar mais livre, sem ter que falar com ninguém.",
+          F: "Não aceito ser controlado(a) ou obrigado(a) a fazer algo.",
+          G: "Tento manter sempre o alto astral.",
+          H: "Preciso controlar tudo, mesmo percebendo que isso me consome muita energia.",
+          I: "É fácil me adaptar a qualquer tipo de pessoa."
+        }
+      },
+      {
+        titulo: "6) Sei que...",
+        opcoes: {
+          A: "Desde cedo me foi incutido um senso de responsabilidade, no sentido de que deveria dar o exemplo.",
+          B: "Ajudar as pessoas é maravilhoso.",
+          C: "É difícil ter tempo para minhas próprias necessidades.",
+          D: "Melancolia é meu estado permanente.",
+          E: "Tenho dificuldades para viver relacionamentos amorosos.",
+          F: "Sentir-se seguro é essencial.",
+          G: "Minhas grandes paixões são as ideias, os novos conhecimentos e desafios.",
+          H: "Nunca estou satisfeito, sempre desejo conquistar mais e mais.",
+          I: "Costumo adiar muitas coisas importantes para mim."
+        }
+      },
+      {
+        titulo: "7) Na verdade...",
+        opcoes: {
+          A: "Sempre faço tudo bem feito.",
+          B: "Adoro aplausos. A vida é um espetáculo.",
+          C: "Modestamente, sou o melhor na minha área.",
+          D: "Sinto-me diferente dos demais; sinto o que ninguém é capaz de sentir.",
+          E: "Sou capaz de ter momentos privados de lazer; sozinho é melhor.",
+          F: "Não gosto de falar de mim e não tenho vontade.",
+          G: "Sou um pouco ou muito narcisista; simplesmente me adoro.",
+          H: "Sinto que posso conquistar o mundo.",
+          I: "Procuro me ajustar ao mundo, facilitando ou resolvendo a vida dos que me rodeiam."
+        }
+      }
+    ];
+
+    const perfis = {
+      A: {
+        nome: "Perfil Perfeccionista / Responsável",
+        analise: "Indica uma pessoa exigente, disciplinada, orientada à qualidade, responsabilidade e cumprimento de padrões. Pode se destacar pela organização e pelo senso de dever, mas pode sofrer com excesso de cobrança e rigidez.",
+        acoes: [
+          "Definir prioridades claras para evitar excesso de autocobrança.",
+          "Reconhecer a qualidade das entregas e não apenas apontar correções.",
+          "Permitir tempo adequado para planejamento, revisão e melhoria contínua."
+        ]
+      },
+      B: {
+        nome: "Perfil Relacional / Reconhecimento",
+        analise: "Indica uma pessoa motivada por relações, aprovação, reconhecimento e valorização social. Tende a se envolver com pessoas e buscar aceitação, podendo se sentir desmotivada quando não recebe retorno ou reconhecimento.",
+        acoes: [
+          "Oferecer feedbacks frequentes e reconhecimento pelas contribuições.",
+          "Inserir a pessoa em atividades colaborativas e de relacionamento.",
+          "Valorizar publicamente bons resultados e atitudes positivas."
+        ]
+      },
+      C: {
+        nome: "Perfil Realizador / Produtivo",
+        analise: "Indica uma pessoa focada em trabalho, desempenho, metas e resultados. Costuma buscar eficiência e reconhecimento por entregas concretas, mas pode negligenciar emoções, descanso e equilíbrio pessoal.",
+        acoes: [
+          "Estabelecer metas desafiadoras, objetivas e mensuráveis.",
+          "Reconhecer conquistas e resultados alcançados.",
+          "Evitar sobrecarga contínua e incentivar equilíbrio entre produtividade e saúde."
+        ]
+      },
+      D: {
+        nome: "Perfil Sensível / Introspectivo Emocional",
+        analise: "Indica uma pessoa sensível, reflexiva e emocionalmente intensa. Pode ter boa percepção subjetiva e criatividade, mas tende a se desmotivar em ambientes frios, impessoais ou pouco acolhedores.",
+        acoes: [
+          "Criar um ambiente de escuta e respeito emocional.",
+          "Oferecer atividades criativas ou que permitam expressão pessoal.",
+          "Evitar comunicação excessivamente dura, impessoal ou desvalorizadora."
+        ]
+      },
+      E: {
+        nome: "Perfil Analítico / Reservado",
+        analise: "Indica uma pessoa mais introspectiva, observadora, técnica e orientada ao conhecimento. Tende a valorizar autonomia, privacidade e profundidade intelectual, podendo se desgastar com excesso de exposição social.",
+        acoes: [
+          "Oferecer tarefas técnicas, analíticas ou de pesquisa.",
+          "Permitir períodos de concentração sem interrupções excessivas.",
+          "Reconhecer a pessoa por seu conhecimento especializado e contribuições técnicas."
+        ]
+      },
+      F: {
+        nome: "Perfil Cauteloso / Segurança",
+        analise: "Indica uma pessoa que valoriza segurança, previsibilidade e análise de riscos. Pode ser prudente e cuidadosa, mas pode demorar a decidir ou evitar situações novas por receio de falhas.",
+        acoes: [
+          "Fornecer orientações claras, processos definidos e previsibilidade.",
+          "Reduzir incertezas por meio de planejamento e comunicação transparente.",
+          "Estimular decisões graduais, com apoio e acompanhamento."
+        ]
+      },
+      G: {
+        nome: "Perfil Otimista / Inovador",
+        analise: "Indica uma pessoa versátil, criativa, otimista e motivada por novidades. Tende a gostar de ideias, possibilidades e experiências, mas pode perder interesse em tarefas repetitivas ou execução prolongada.",
+        acoes: [
+          "Envolver a pessoa em projetos inovadores e variados.",
+          "Dar espaço para criação, proposição de ideias e melhoria de processos.",
+          "Ajudar na organização e conclusão das atividades iniciadas."
+        ]
+      },
+      H: {
+        nome: "Perfil Assertivo / Desafiador",
+        analise: "Indica uma pessoa forte, determinada, competitiva e orientada à ação. Pode assumir liderança e enfrentar desafios com coragem, mas pode ter dificuldade em aceitar opiniões contrárias ou dividir controle.",
+        acoes: [
+          "Oferecer desafios relevantes e responsabilidades claras.",
+          "Canalizar a energia para liderança positiva e resolução de problemas.",
+          "Trabalhar comunicação, escuta ativa e negociação em equipe."
+        ]
+      },
+      I: {
+        nome: "Perfil Conciliador / Adaptável",
+        analise: "Indica uma pessoa adaptável, colaborativa e voltada à harmonia. Pode facilitar relações e evitar conflitos, mas também pode procrastinar decisões importantes ou deixar suas próprias prioridades em segundo plano.",
+        acoes: [
+          "Definir prazos, prioridades e responsabilidades de forma objetiva.",
+          "Estimular posicionamento próprio e participação em decisões.",
+          "Reconhecer sua contribuição para o clima organizacional e cooperação da equipe."
+        ]
+      }
+    };
+
+    function montarQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+
+      perguntas.forEach((pergunta, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+
+        let html = `<h3>${pergunta.titulo}</h3>`;
+
+        Object.entries(pergunta.opcoes).forEach(([letra, texto]) => {
+          html += `
+            <label class="option">
+              <input type="radio" name="q${index + 1}" value="${letra}">
+              <span><strong>${letra}.</strong> ${texto}</span>
+            </label>
+          `;
+        });
+
+        div.innerHTML = html;
+        form.appendChild(div);
+      });
+    }
+
+    let ultimoResultadoTexto = "";
+
+    function calcularPerfil() {
+      const alerta = document.getElementById("alerta");
+      alerta.style.display = "none";
+      alerta.innerText = "";
+
+      const pontuacao = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0 };
+      const respostas = [];
+
+      for (let i = 1; i <= perguntas.length; i++) {
+        const resposta = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!resposta) {
+          alerta.innerText = `Responda a pergunta ${i} antes de calcular o perfil.`;
+          alerta.style.display = "block";
+          document.getElementById("resultado").style.display = "none";
+          ultimoResultadoTexto = "";
+          return;
+        }
+        pontuacao[resposta.value]++;
+        respostas.push(resposta.value);
+      }
+
+      const maiorPontuacao = Math.max(...Object.values(pontuacao));
+      const predominantes = Object.keys(pontuacao).filter(letra => pontuacao[letra] === maiorPontuacao);
+
+      let perfilTexto = predominantes.map(letra => `${letra} - ${perfis[letra].nome}`).join(" | ");
+
+      document.getElementById("resNome").innerText = document.getElementById("nome").value || "Não informado";
+      document.getElementById("resEmpresa").innerText = document.getElementById("empresa").value || "Não informado";
+      document.getElementById("resCargo").innerText = document.getElementById("cargo").value || "Não informado";
+      document.getElementById("perfilPredominante").innerText = perfilTexto;
+
+      montarTabelaPontuacao(pontuacao);
+      montarAnalise(predominantes);
+      gerarTextoResultado(pontuacao, predominantes, respostas);
+
+      document.getElementById("resultado").style.display = "block";
+      document.getElementById("resultado").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function montarTabelaPontuacao(pontuacao) {
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Alternativa</th>
+              <th>Perfil associado</th>
+              <th>Pontuação</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      Object.keys(pontuacao).forEach(letra => {
+        html += `
+          <tr>
+            <td>${letra}</td>
+            <td>${perfis[letra].nome}</td>
+            <td>${pontuacao[letra]}</td>
+          </tr>
+        `;
+      });
+
+      html += "</tbody></table>";
+      document.getElementById("tabelaPontuacao").innerHTML = html;
+    }
+
+    function montarAnalise(predominantes) {
+      const analises = predominantes.map(letra => perfis[letra].analise);
+      document.getElementById("analiseTexto").innerText = analises.join(" ");
+
+      const lista = document.getElementById("acoesMotivacionais");
+      lista.innerHTML = "";
+
+      predominantes.forEach(letra => {
+        perfis[letra].acoes.forEach(acao => {
+          const li = document.createElement("li");
+          li.innerText = acao;
+          lista.appendChild(li);
+        });
+      });
+    }
+
+    function gerarTextoResultado(pontuacao, predominantes, respostas) {
+      const nome = document.getElementById("nome").value || "Não informado";
+      const empresa = document.getElementById("empresa").value || "Não informado";
+      const cargo = document.getElementById("cargo").value || "Não informado";
+      const dataHora = new Date().toLocaleString("pt-BR");
+
+      const perfilTexto = predominantes.map(letra => `${letra} - ${perfis[letra].nome}`).join(" | ");
+      const analise = predominantes.map(letra => perfis[letra].analise).join(" ");
+
+      let acoes = "";
+      predominantes.forEach(letra => {
+        perfis[letra].acoes.forEach(acao => {
+          acoes += `- ${acao}
+`;
+        });
+      });
+
+      let pontuacaoTexto = "";
+      Object.keys(pontuacao).forEach(letra => {
+        pontuacaoTexto += `${letra} - ${perfis[letra].nome}: ${pontuacao[letra]} ponto(s)
+`;
+      });
+
+      let respostasTexto = "";
+      respostas.forEach((resposta, index) => {
+        respostasTexto += `Pergunta ${index + 1}: alternativa ${resposta}
+`;
+      });
+
+      ultimoResultadoTexto = `RESULTADO DA ANÁLISE DE PERFIL - ATIVIDADE I
+
+` +
+        `Data/Hora: ${dataHora}
+` +
+        `Nome: ${nome}
+` +
+        `Empresa: ${empresa}
+` +
+        `Cargo: ${cargo}
+
+` +
+        `PERFIL PREDOMINANTE
+${perfilTexto}
+
+` +
+        `RESPOSTAS SELECIONADAS
+${respostasTexto}
+` +
+        `DISTRIBUIÇÃO DA PONTUAÇÃO
+${pontuacaoTexto}
+` +
+        `ANÁLISE OBJETIVA
+${analise}
+
+` +
+        `AÇÕES RECOMENDADAS PARA MELHORAR A MOTIVAÇÃO NO TRABALHO
+${acoes}
+` +
+        `Observação: esta análise é simplificada e possui finalidade educacional. Não deve ser tratada como diagnóstico psicológico ou avaliação clínica.`;
+    }
+
+    function preencherFormularioEmail() {
+      if (!ultimoResultadoTexto) {
+        calcularPerfil();
+        if (!ultimoResultadoTexto) return false;
+      }
+
+      const nome = document.getElementById("nome").value || "Não informado";
+      const empresa = document.getElementById("empresa").value || "Não informado";
+      const cargo = document.getElementById("cargo").value || "Não informado";
+      const perfil = document.getElementById("perfilPredominante").innerText || "Não calculado";
+      const analise = document.getElementById("analiseTexto").innerText || "Não calculado";
+
+      let respostasTexto = "";
+      for (let i = 1; i <= perguntas.length; i++) {
+        const resposta = document.querySelector(`input[name="q${i}"]:checked`);
+        respostasTexto += `Pergunta ${i}: alternativa ${resposta ? resposta.value : "não respondida"}
+`;
+      }
+
+      let pontuacaoTexto = "";
+      const linhasTabela = document.querySelectorAll("#tabelaPontuacao tbody tr");
+      linhasTabela.forEach(linha => {
+        const colunas = linha.querySelectorAll("td");
+        if (colunas.length === 3) {
+          pontuacaoTexto += `${colunas[0].innerText} - ${colunas[1].innerText}: ${colunas[2].innerText} ponto(s)
+`;
+        }
+      });
+
+      let acoesTexto = "";
+      document.querySelectorAll("#acoesMotivacionais li").forEach(item => {
+        acoesTexto += `- ${item.innerText}
+`;
+      });
+
+      document.getElementById("emailNome").value = nome;
+      document.getElementById("emailEmpresa").value = empresa;
+      document.getElementById("emailCargo").value = cargo;
+      document.getElementById("emailPerfil").value = perfil;
+      document.getElementById("emailRespostas").value = respostasTexto;
+      document.getElementById("emailPontuacao").value = pontuacaoTexto;
+      document.getElementById("emailAnalise").value = analise;
+      document.getElementById("emailAcoes").value = acoesTexto;
+      document.getElementById("emailRelatorioCompleto").value = ultimoResultadoTexto;
+
+      return true;
+    }
+
+    function enviarResultadoEmail() {
+      const formularioPronto = preencherFormularioEmail();
+      if (!formularioPronto) return;
+
+      alert("O relatório será enviado para fae.mfg@gmail.com. No primeiro uso, o FormSubmit pode solicitar confirmação desse e-mail.");
+      document.getElementById("emailForm").submit();
+    }
+
+    function proximaPagina() {
+      const formularioPronto = preencherFormularioEmail();
+      if (!formularioPronto) return;
+
+      document.getElementById("emailForm").submit();
+
+      setTimeout(() => {
+        window.location.href = "ancora.html";
+      }, 1200);
+    }
+
+    function baixarResultadoTxt() {
+      if (!ultimoResultadoTexto) {
+        calcularPerfil();
+        if (!ultimoResultadoTexto) return;
+      }
+
+      const blob = new Blob([ultimoResultadoTexto], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "resultado_analise_perfil_atividade_i.txt";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function limparFormulario() {
+      document.getElementById("quizForm").reset();
+      document.getElementById("nome").value = "";
+      document.getElementById("empresa").value = "";
+      document.getElementById("cargo").value = "";
+      document.getElementById("resultado").style.display = "none";
+      document.getElementById("alerta").style.display = "none";
+      ultimoResultadoTexto = "";
+    }
+
+    montarQuiz();
+  </script>
+</body>
+</html>
