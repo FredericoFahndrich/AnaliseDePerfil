@@ -1,54 +1,734 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Âncoras de Carreira</title>
-<style>
-body{font-family:Arial,sans-serif;background:#f4f6f8;color:#222;margin:0}header{background:#1f3a5f;color:#fff;padding:24px;text-align:center}main{max-width:1050px;margin:24px auto;background:#fff;padding:28px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08)}h1,h2,h3{margin-top:0}.intro{background:#eef4fb;border-left:5px solid #1f3a5f;padding:16px;margin-bottom:24px;border-radius:8px;line-height:1.5}.participante,.question{background:#fafafa;border:1px solid #ddd;border-radius:10px;padding:16px;margin-bottom:16px}.escala{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;background:#fafafa;border:1px solid #ddd;border-radius:10px;padding:14px;margin-bottom:24px;font-size:14px;text-align:center}.escala div{padding:8px;background:#fff;border-radius:8px;border:1px solid #e2e2e2}.question-title{font-weight:bold;color:#1f3a5f;margin-bottom:12px;line-height:1.4}.radio-row{display:flex;flex-wrap:wrap;gap:12px}.radio-option{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:normal}.radio-option:hover{background:#eef4fb}button{background:#1f3a5f;color:#fff;border:0;padding:14px 28px;border-radius:8px;cursor:pointer;font-size:17px;margin-right:10px;margin-top:12px}button:hover{background:#2d5284}.resultado{margin-top:28px;padding:22px;border-radius:10px;background:#eef8f0;border-left:5px solid #2e7d32;display:none}.alerta{background:#fff3cd;border-left:5px solid #f0ad4e;padding:14px;border-radius:8px;margin-top:16px;display:none;line-height:1.4}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #ddd;padding:10px;text-align:left}th{background:#1f3a5f;color:#fff}.perfil-destaque{font-size:20px;font-weight:bold;color:#1f3a5f}.rodape{font-size:13px;color:#666;margin-top:24px;border-top:1px solid #ddd;padding-top:12px}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.58);color:#fff;z-index:1000;align-items:center;justify-content:center;text-align:center;padding:24px}.overlay-box{background:#1f3a5f;padding:28px;border-radius:14px;max-width:480px;box-shadow:0 6px 18px rgba(0,0,0,.3)}@media(max-width:700px){.escala{grid-template-columns:1fr 1fr}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Âncoras de Carreira</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1f3a5f;
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 24px auto;
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+    }
+
+    .intro {
+      background: #eef4fb;
+      border-left: 5px solid #1f3a5f;
+      padding: 16px;
+      margin-bottom: 24px;
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+
+    .participante {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .escala {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .escala div {
+      padding: 8px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e2e2e2;
+    }
+
+    .question {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: #fafafa;
+    }
+
+    .question-title {
+      font-weight: bold;
+      color: #1f3a5f;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .radio-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .radio-option:hover {
+      background: #eef4fb;
+    }
+
+    button {
+      background: #1f3a5f;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 17px;
+      margin-right: 10px;
+      margin-top: 12px;
+    }
+
+    button:hover {
+      background: #2d5284;
+    }
+
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .resultado {
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: 10px;
+      background: #eef8f0;
+      border-left: 5px solid #2e7d32;
+      display: none;
+    }
+
+    .alerta {
+      background: #fff3cd;
+      border-left: 5px solid #f0ad4e;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 16px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #1f3a5f;
+      color: white;
+    }
+
+    .perfil-destaque {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1f3a5f;
+    }
+
+    .rodape {
+      font-size: 13px;
+      color: #666;
+      margin-top: 24px;
+      border-top: 1px solid #ddd;
+      padding-top: 12px;
+      line-height: 1.4;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.58);
+      color: white;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .overlay-box {
+      background: #1f3a5f;
+      padding: 28px;
+      border-radius: 14px;
+      max-width: 480px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 700px) {
+      .escala {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      button {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header><h1>Âncoras de Carreira</h1><p>Questionário de identificação das principais motivações profissionais</p></header>
-<main>
-<section class="intro"><strong>Instrução:</strong> leia cada frase e selecione de 1 a 6 o quanto a afirmação é verdadeira para você. Clique em <strong>Resultado</strong> para calcular, exibir e enviar o relatório por e-mail.</section>
-<section class="participante"><strong>Nome:</strong> <span id="infoNome"></span><br><strong>Empresa:</strong> <span id="infoEmpresa"></span><br><strong>Cargo:</strong> <span id="infoCargo"></span></section>
-<section class="escala"><div><strong>1</strong><br>Nunca é verdadeiro</div><div><strong>2</strong><br>Raramente verdadeiro</div><div><strong>3</strong><br>Pouco verdadeiro</div><div><strong>4</strong><br>Moderadamente verdadeiro</div><div><strong>5</strong><br>Frequentemente verdadeiro</div><div><strong>6</strong><br>Sempre verdadeiro</div></section>
-<form id="quizForm"></form>
-<button type="button" onclick="mostrarResultadoEnviarEmail()">Resultado</button>
-<button type="button" onclick="finalizarQuestionario()">Finalizar</button>
-<div id="alerta" class="alerta"></div>
-<section id="resultado" class="resultado"><h2>Resultado das Âncoras de Carreira</h2><p><strong>Nome:</strong> <span id="resNome"></span></p><p><strong>Empresa:</strong> <span id="resEmpresa"></span></p><p><strong>Cargo:</strong> <span id="resCargo"></span></p><p>Âncora predominante:</p><p class="perfil-destaque" id="ancoraPredominante"></p><h3>Pontuação por Âncora</h3><div id="tabelaPontuacao"></div><h3>Análise objetiva</h3><p id="analiseTexto"></p><h3>Ações recomendadas para melhorar a motivação no trabalho</h3><ul id="acoesMotivacionais"></ul></section>
-<form id="emailForm" action="https://formsubmit.co/fae.mfg@gmail.com" method="POST" target="envioOculto" style="display:none"><input type="hidden" name="_subject" value="Resultado das Âncoras de Carreira"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_template" value="table"><input type="hidden" name="Nome" id="emailNome"><input type="hidden" name="Empresa" id="emailEmpresa"><input type="hidden" name="Cargo" id="emailCargo"><input type="hidden" name="Âncora predominante" id="emailAncora"><input type="hidden" name="Respostas selecionadas" id="emailRespostas"><input type="hidden" name="Pontuação por âncora" id="emailPontuacao"><input type="hidden" name="Análise objetiva" id="emailAnalise"><input type="hidden" name="Ações recomendadas" id="emailAcoes"><input type="hidden" name="Relatório completo" id="emailRelatorioCompleto"></form>
-<iframe name="envioOculto" style="display:none"></iframe>
-<p class="rodape">Observação: esta página gera uma análise simplificada com finalidade educacional. O resultado não deve ser tratado como diagnóstico psicológico, avaliação clínica ou orientação profissional definitiva.</p>
-</main>
-<div id="overlay" class="overlay"><div class="overlay-box"><h2>Enviando relatório...</h2><p>O resultado será enviado por e-mail. Aguarde a confirmação na própria página.</p></div></div>
-<script>
-let dadosParticipante={},ultimoResultadoTexto='';
-const perguntas=['Eu sonho em ser tão bom no que faço que serei constantemente consultado(a) como um especialista.','Sinto-me mais realizado quando sou capaz de integrar e gerenciar os esforços dos outros.','Eu sonho em ter uma carreira que me dê a liberdade para realizar o trabalho à minha maneira e fazer meus próprios horários.','Segurança e estabilidade são mais importantes para mim do que liberdade e autonomia.','Eu estou sempre buscando ideias que me permitirão começar um negócio próprio.','Eu me sentirei realmente bem-sucedido(a) se eu tiver feito uma real contribuição ao bem-estar da sociedade como um todo.','Eu sonho com uma carreira onde eu possa resolver problemas ou ir além em situações que são extremamente desafiadoras.','Eu preferiria deixar meu emprego agora se tivesse que assumir uma posição onde tivesse que sacrificar mais minha vida pessoal e familiar.','Eu me sentirei bem-sucedido(a) em minha carreira se eu puder desenvolver minhas habilidades técnicas num alto nível de competência.','Eu sonho em ser responsável por uma organização complexa e tomar decisões que afetem muitas pessoas.','Sinto-me realizado(a) no trabalho quando tenho a liberdade de definir minhas próprias tarefas, cronogramas e procedimentos.','Eu preferiria deixar meu emprego se tivesse que assumir um desafio que colocaria em risco minha segurança na organização.','Construir meu próprio negócio é mais importante para mim do que atingir uma alta posição numa organização como empregado(a).','Sinto-me realizado(a) em minha carreira quando sou hábil em utilizar meus talentos a serviço dos outros.','Eu me sentirei bem-sucedido(a) em minha carreira se tiver que encarar e ultrapassar desafios.','Eu sonho com uma carreira que me permita integrar minhas necessidades pessoais, familiares e profissionais.','Tornar-me um especialista em minha área é mais atrativo do que ser um gerente geral.','Eu me sentirei bem-sucedido(a) se me tornar um gerente geral em alguma organização.','Eu me sentirei bem-sucedido(a) na carreira se conseguir completa autonomia e liberdade.','Eu procuro por um trabalho dentro da organização que me ofereça segurança e estabilidade.','Sinto-me realizado(a) em meu trabalho quando consigo construir algo que é unicamente o resultado de minhas próprias ideias e esforço.','Utilizar minhas habilidades para fazer do mundo um lugar melhor para se viver e trabalhar é mais importante do que atingir um alto cargo.','Sinto-me realizado(a) em minha carreira quando consigo resolver problemas considerados impossíveis.','Sinto-me bem-sucedido(a) na vida apenas se consigo equilibrar minhas necessidades pessoais, familiares e de carreira.','Eu preferiria deixar meu emprego do que aceitar um cargo rotativo que me deixaria fora da minha área de especialidade.','Tornar-me um gerente geral é mais atraente do que ser um especialista na área em que atuo.','A oportunidade de realizar um trabalho do meu jeito, livre de regras e restrições, é mais importante do que ter segurança.','Sinto-me realizado(a) no trabalho quando tenho completa estabilidade financeira e na carreira.','Eu me sentirei realizado(a) em minha carreira se tiver criado ou construído algo que é inteiramente de minha autoria.','Eu sonho em ter uma carreira que faça uma real contribuição para a humanidade e para a sociedade.','Eu busco oportunidades de trabalho que desafiam fortemente minha capacidade de resolver problemas.','Equilibrar as demandas de minha vida pessoal e profissional é mais importante do que atingir um alto cargo.','Sinto-me realizado(a) no trabalho quando sou hábil em utilizar minhas competências e talentos especiais.','Eu preferiria deixar meu emprego do que aceitar outra posição que me colocaria distante da trajetória à gerência geral do negócio.','Eu preferiria deixar meu emprego do que aceitar um trabalho que reduzisse minha autonomia e liberdade.','Eu sonho em ter uma carreira que me proporcione a sensação de segurança e estabilidade.','Eu sonho em iniciar e montar meu próprio negócio.','Eu preferiria deixar meu emprego do que aceitar um desafio que retiraria a possibilidade de servir aos outros.','Trabalhar com problemas que são considerados impossíveis é mais importante do que atingir um alto cargo.','Eu sempre procuro oportunidades que minimizem a interferência na minha vida pessoal e familiar.'];
-const mapeamento={TF:[1,9,17,25,33],GG:[2,10,18,26,34],AI:[3,11,19,27,35],SE:[4,12,20,28,36],CE:[5,13,21,29,37],SD:[6,14,22,30,38],PD:[7,15,23,31,39],EV:[8,16,24,32,40]};
-const ancoras={TF:{nome:'Técnico-Funcional',analise:'Indica motivação por especialização, domínio técnico e reconhecimento pela competência profissional em uma área específica.',acoes:['Oferecer desafios técnicos compatíveis com a especialidade da pessoa.','Criar oportunidades de capacitação, certificação e aprofundamento profissional.','Reconhecer publicamente a contribuição técnica e a qualidade das entregas.']},GG:{nome:'Gerência Geral',analise:'Indica motivação por liderança, tomada de decisão, gestão de pessoas, visão sistêmica e responsabilidade sobre resultados organizacionais.',acoes:['Delegar responsabilidades de coordenação e liderança.','Envolver a pessoa em decisões estratégicas e projetos interdepartamentais.','Criar trilhas de desenvolvimento gerencial e feedback sobre liderança.']},AI:{nome:'Autonomia e Independência',analise:'Indica motivação por liberdade para decidir como executar o trabalho, flexibilidade e menor dependência de regras rígidas.',acoes:['Reduzir microgerenciamento e dar liberdade sobre métodos de trabalho.','Estabelecer metas claras, mas permitir autonomia na execução.','Oferecer projetos com maior independência e responsabilidade individual.']},SE:{nome:'Segurança e Estabilidade',analise:'Indica motivação por previsibilidade, estabilidade financeira, clareza de processos e ambiente profissional seguro.',acoes:['Comunicar mudanças com antecedência e transparência.','Oferecer processos claros, estabilidade de função e expectativas bem definidas.','Valorizar benefícios, continuidade e planejamento de carreira.']},CE:{nome:'Criatividade Empreendedora',analise:'Indica motivação por criação, inovação, construção de algo próprio, iniciativa e desenvolvimento de novas ideias ou negócios.',acoes:['Inserir a pessoa em projetos de inovação e melhoria de processos.','Permitir proposição de novas soluções, produtos ou métodos.','Reconhecer iniciativas autorais e dar espaço para experimentação controlada.']},SD:{nome:'Serviço e Dedicação a uma Causa',analise:'Indica motivação por propósito, contribuição social, ajuda aos outros e alinhamento do trabalho com valores pessoais.',acoes:['Conectar as atividades da pessoa ao impacto positivo gerado pelo trabalho.','Envolver em projetos com propósito, melhoria social ou suporte a pessoas.','Reconhecer atitudes de colaboração, cuidado e contribuição coletiva.']},PD:{nome:'Puro Desafio',analise:'Indica motivação por problemas difíceis, superação, competição, metas ambiciosas e situações que exigem alta capacidade de resolução.',acoes:['Oferecer metas desafiadoras e problemas complexos para resolver.','Criar oportunidades de atuação em projetos críticos ou de alta dificuldade.','Reconhecer conquistas associadas à superação de obstáculos.']},EV:{nome:'Estilo de Vida',analise:'Indica motivação por equilíbrio entre vida pessoal, familiar e profissional, valorizando flexibilidade e qualidade de vida.',acoes:['Evitar sobrecarga constante e respeitar limites de jornada.','Oferecer flexibilidade quando possível, como horários ajustáveis ou trabalho híbrido.','Valorizar produtividade sustentável, não apenas disponibilidade permanente.']}};
-function carregarDadosParticipante(){dadosParticipante=JSON.parse(localStorage.getItem('dadosParticipante')||'{}');if(!dadosParticipante.nome||!dadosParticipante.empresa||!dadosParticipante.cargo){alert('Preencha nome, empresa e cargo na página inicial antes de continuar.');location.href='index.html';return;}infoNome.innerText=dadosParticipante.nome;infoEmpresa.innerText=dadosParticipante.empresa;infoCargo.innerText=dadosParticipante.cargo;}
-function montarQuiz(){quizForm.innerHTML='';perguntas.forEach((txt,i)=>{let n=i+1,html=`<div class="question-title">${n}. ${txt}</div><div class="radio-row">`;for(let v=1;v<=6;v++)html+=`<label class="radio-option"><input type="radio" name="q${n}" value="${v}">${v}</label>`;html+='</div>';const d=document.createElement('div');d.className='question';d.innerHTML=html;quizForm.appendChild(d);});}
-function calcularResultado(){alerta.style.display='none';const respostas={};for(let i=1;i<=perguntas.length;i++){const r=document.querySelector(`input[name="q${i}"]:checked`);if(!r){alerta.innerText=`Responda a questão ${i} antes de calcular o resultado.`;alerta.style.display='block';return null;}respostas[i]=Number(r.value);}const pont={};Object.keys(mapeamento).forEach(s=>pont[s]=mapeamento[s].reduce((t,q)=>t+respostas[q],0));const maior=Math.max(...Object.values(pont)),pred=Object.keys(pont).filter(s=>pont[s]===maior);montarResultadoVisual(pont,pred);gerarTextoResultado(pont,pred,respostas);return{pontuacao:pont,predominantes:pred,respostas};}
-function montarResultadoVisual(pont,pred){resNome.innerText=dadosParticipante.nome;resEmpresa.innerText=dadosParticipante.empresa;resCargo.innerText=dadosParticipante.cargo;ancoraPredominante.innerText=pred.map(s=>`${s} - ${ancoras[s].nome}`).join(' | ');let html='<table><thead><tr><th>Sigla</th><th>Âncora</th><th>Pontuação</th></tr></thead><tbody>';Object.keys(pont).forEach(s=>html+=`<tr><td>${s}</td><td>${ancoras[s].nome}</td><td>${pont[s]}</td></tr>`);tabelaPontuacao.innerHTML=html+'</tbody></table>';analiseTexto.innerText=pred.map(s=>ancoras[s].analise).join(' ');acoesMotivacionais.innerHTML='';pred.forEach(s=>ancoras[s].acoes.forEach(a=>{const li=document.createElement('li');li.innerText=a;acoesMotivacionais.appendChild(li);}));resultado.style.display='block';}
-function gerarTextoResultado(pont,pred,respostas){let predTxt=pred.map(s=>`${s} - ${ancoras[s].nome}`).join(' | '),respTxt='',pontTxt='',analise=pred.map(s=>ancoras[s].analise).join(' '),acoes='';Object.keys(respostas).forEach(n=>respTxt+=`Questão ${n}: ${respostas[n]}\n`);Object.keys(pont).forEach(s=>pontTxt+=`${s} - ${ancoras[s].nome}: ${pont[s]} ponto(s)\n`);pred.forEach(s=>ancoras[s].acoes.forEach(a=>acoes+=`- ${a}\n`));ultimoResultadoTexto=`RESULTADO DAS ÂNCORAS DE CARREIRA\n\nData/Hora: ${new Date().toLocaleString('pt-BR')}\nNome: ${dadosParticipante.nome}\nEmpresa: ${dadosParticipante.empresa}\nCargo: ${dadosParticipante.cargo}\n\nÂNCORA PREDOMINANTE\n${predTxt}\n\nRESPOSTAS SELECIONADAS\n${respTxt}\nPONTUAÇÃO POR ÂNCORA\n${pontTxt}\nANÁLISE OBJETIVA\n${analise}\n\nAÇÕES RECOMENDADAS\n${acoes}`;}
-function preencherFormularioEmail(r){let anc=r.predominantes.map(s=>`${s} - ${ancoras[s].nome}`).join(' | '),analise=r.predominantes.map(s=>ancoras[s].analise).join(' '),resp='',pont='',acoes='';Object.keys(r.respostas).forEach(n=>resp+=`Questão ${n}: ${r.respostas[n]}\n`);Object.keys(r.pontuacao).forEach(s=>pont+=`${s} - ${ancoras[s].nome}: ${r.pontuacao[s]} ponto(s)\n`);r.predominantes.forEach(s=>ancoras[s].acoes.forEach(a=>acoes+=`- ${a}\n`));emailNome.value=dadosParticipante.nome;emailEmpresa.value=dadosParticipante.empresa;emailCargo.value=dadosParticipante.cargo;emailAncora.value=anc;emailRespostas.value=resp;emailPontuacao.value=pont;emailAnalise.value=analise;emailAcoes.value=acoes;emailRelatorioCompleto.value=ultimoResultadoTexto;}
-function enviarRelatorioEmail(r){preencherFormularioEmail(r);emailForm.submit();}
-function mostrarResultadoEnviarEmail(){const r=calcularResultado();if(!r)return;enviarRelatorioEmail(r);resultado.scrollIntoView({behavior:'smooth'});alerta.innerText='Resultado calculado e relatório enviado por e-mail para fae.mfg@gmail.com.';alerta.style.display='block';}
-function finalizarQuestionario() {
-  const resultado = calcularResultado();
-  if (!resultado) return;
+  <header>
+    <h1>Âncoras de Carreira</h1>
+    <p>Questionário de identificação das principais motivações profissionais</p>
+  </header>
 
-  preencherFormularioEmail(resultado);
-  document.getElementById("overlay").style.display = "flex";
-  document.getElementById("emailForm").submit();
+  <main>
+    <section class="intro">
+      <strong>Instrução:</strong> leia cada frase e selecione de 1 a 6 o quanto a afirmação é verdadeira para você.
+      Ao final, clique em <strong>Finalizar</strong> para calcular o resultado, enviar o relatório por e-mail e retornar à página inicial.
+    </section>
 
-  setTimeout(() => {
-    localStorage.removeItem("dadosParticipante");
-    window.location.href = "index.html";
-  }, 1800);
-}
-carregarDadosParticipante();montarQuiz();
-</script>
+    <section class="participante">
+      <strong>Nome:</strong> <span id="infoNome"></span><br>
+      <strong>Empresa:</strong> <span id="infoEmpresa"></span><br>
+      <strong>Cargo:</strong> <span id="infoCargo"></span>
+    </section>
+
+    <section class="escala">
+      <div><strong>1</strong><br>Nunca é verdadeiro</div>
+      <div><strong>2</strong><br>Raramente verdadeiro</div>
+      <div><strong>3</strong><br>Pouco verdadeiro</div>
+      <div><strong>4</strong><br>Moderadamente verdadeiro</div>
+      <div><strong>5</strong><br>Frequentemente verdadeiro</div>
+      <div><strong>6</strong><br>Sempre verdadeiro</div>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <button type="button" onclick="mostrarResultadoEnviarEmail()" disabled>
+      Resultado
+    </button>
+
+    <button type="button" onclick="finalizarQuestionario()">
+      Finalizar
+    </button>
+
+    <div id="alerta" class="alerta"></div>
+
+    <section id="resultado" class="resultado">
+      <h2>Resultado das Âncoras de Carreira</h2>
+
+      <p><strong>Nome:</strong> <span id="resNome"></span></p>
+      <p><strong>Empresa:</strong> <span id="resEmpresa"></span></p>
+      <p><strong>Cargo:</strong> <span id="resCargo"></span></p>
+
+      <p>Âncora predominante:</p>
+      <p class="perfil-destaque" id="ancoraPredominante"></p>
+
+      <h3>Pontuação por Âncora</h3>
+      <div id="tabelaPontuacao"></div>
+
+      <h3>Análise objetiva</h3>
+      <p id="analiseTexto"></p>
+
+      <h3>Ações recomendadas para melhorar a motivação no trabalho</h3>
+      <ul id="acoesMotivacionais"></ul>
+    </section>
+
+    <form
+      id="emailForm"
+      action="https://formsubmit.co/fae.mfg@gmail.com"
+      method="POST"
+      target="envioOculto"
+      style="display: none;"
+    >
+      <input type="hidden" name="_subject" value="Resultado das Âncoras de Carreira">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+      <input type="hidden" name="Nome" id="emailNome">
+      <input type="hidden" name="Empresa" id="emailEmpresa">
+      <input type="hidden" name="Cargo" id="emailCargo">
+      <input type="hidden" name="Âncora predominante" id="emailAncora">
+      <input type="hidden" name="Respostas selecionadas" id="emailRespostas">
+      <input type="hidden" name="Pontuação por âncora" id="emailPontuacao">
+      <input type="hidden" name="Análise objetiva" id="emailAnalise">
+      <input type="hidden" name="Ações recomendadas" id="emailAcoes">
+      <input type="hidden" name="Relatório completo" id="emailRelatorioCompleto">
+    </form>
+
+    <iframe name="envioOculto" style="display: none;"></iframe>
+
+    <p class="rodape">
+      Observação: esta página gera uma análise simplificada com finalidade educacional.
+      O resultado não deve ser tratado como diagnóstico psicológico, avaliação clínica ou orientação profissional definitiva.
+    </p>
+  </main>
+
+  <div id="overlay" class="overlay">
+    <div class="overlay-box">
+      <h2>Enviando relatório...</h2>
+      <p>O resultado será enviado por e-mail. Em seguida, a página retornará para o início.</p>
+    </div>
+  </div>
+
+  <script>
+    let dadosParticipante = {};
+    let ultimoResultadoTexto = "";
+
+    const perguntas = [
+      "Eu sonho em ser tão bom no que faço que serei constantemente consultado(a) como um especialista.",
+      "Sinto-me mais realizado quando sou capaz de integrar e gerenciar os esforços dos outros.",
+      "Eu sonho em ter uma carreira que me dê a liberdade para realizar o trabalho à minha maneira e fazer meus próprios horários.",
+      "Segurança e estabilidade são mais importantes para mim do que liberdade e autonomia.",
+      "Eu estou sempre buscando ideias que me permitirão começar um negócio próprio.",
+      "Eu me sentirei realmente bem-sucedido(a) se eu tiver feito uma real contribuição ao bem-estar da sociedade como um todo.",
+      "Eu sonho com uma carreira onde eu possa resolver problemas ou ir além em situações que são extremamente desafiadoras.",
+      "Eu preferiria deixar meu emprego agora se tivesse que assumir uma posição onde tivesse que sacrificar mais minha vida pessoal e familiar.",
+      "Eu me sentirei bem-sucedido(a) em minha carreira se eu puder desenvolver minhas habilidades técnicas num alto nível de competência.",
+      "Eu sonho em ser responsável por uma organização complexa e tomar decisões que afetem muitas pessoas.",
+      "Sinto-me realizado(a) no trabalho quando tenho a liberdade de definir minhas próprias tarefas, cronogramas e procedimentos.",
+      "Eu preferiria deixar meu emprego se tivesse que assumir um desafio que colocaria em risco minha segurança na organização.",
+      "Construir meu próprio negócio é mais importante para mim do que atingir uma alta posição numa organização como empregado(a).",
+      "Sinto-me realizado(a) em minha carreira quando sou hábil em utilizar meus talentos a serviço dos outros.",
+      "Eu me sentirei bem-sucedido(a) em minha carreira se tiver que encarar e ultrapassar desafios.",
+      "Eu sonho com uma carreira que me permita integrar minhas necessidades pessoais, familiares e profissionais.",
+      "Tornar-me um especialista em minha área é mais atrativo do que ser um gerente geral.",
+      "Eu me sentirei bem-sucedido(a) se me tornar um gerente geral em alguma organização.",
+      "Eu me sentirei bem-sucedido(a) na carreira se conseguir completa autonomia e liberdade.",
+      "Eu procuro por um trabalho dentro da organização que me ofereça segurança e estabilidade.",
+      "Sinto-me realizado(a) em meu trabalho quando consigo construir algo que é unicamente o resultado de minhas próprias ideias e esforço.",
+      "Utilizar minhas habilidades para fazer do mundo um lugar melhor para se viver e trabalhar é mais importante do que atingir um alto cargo.",
+      "Sinto-me realizado(a) em minha carreira quando consigo resolver problemas considerados impossíveis.",
+      "Sinto-me bem-sucedido(a) na vida apenas se consigo equilibrar minhas necessidades pessoais, familiares e de carreira.",
+      "Eu preferiria deixar meu emprego do que aceitar um cargo rotativo que me deixaria fora da minha área de especialidade.",
+      "Tornar-me um gerente geral é mais atraente do que ser um especialista na área em que atuo.",
+      "A oportunidade de realizar um trabalho do meu jeito, livre de regras e restrições, é mais importante do que ter segurança.",
+      "Sinto-me realizado(a) no trabalho quando tenho completa estabilidade financeira e na carreira.",
+      "Eu me sentirei realizado(a) em minha carreira se tiver criado ou construído algo que é inteiramente de minha autoria.",
+      "Eu sonho em ter uma carreira que faça uma real contribuição para a humanidade e para a sociedade.",
+      "Eu busco oportunidades de trabalho que desafiam fortemente minha capacidade de resolver problemas.",
+      "Equilibrar as demandas de minha vida pessoal e profissional é mais importante do que atingir um alto cargo.",
+      "Sinto-me realizado(a) no trabalho quando sou hábil em utilizar minhas competências e talentos especiais.",
+      "Eu preferiria deixar meu emprego do que aceitar outra posição que me colocaria distante da trajetória à gerência geral do negócio.",
+      "Eu preferiria deixar meu emprego do que aceitar um trabalho que reduzisse minha autonomia e liberdade.",
+      "Eu sonho em ter uma carreira que me proporcione a sensação de segurança e estabilidade.",
+      "Eu sonho em iniciar e montar meu próprio negócio.",
+      "Eu preferiria deixar meu emprego do que aceitar um desafio que retiraria a possibilidade de servir aos outros.",
+      "Trabalhar com problemas que são considerados impossíveis é mais importante do que atingir um alto cargo.",
+      "Eu sempre procuro oportunidades que minimizem a interferência na minha vida pessoal e familiar."
+    ];
+
+    const mapeamento = {
+      TF: [1, 9, 17, 25, 33],
+      GG: [2, 10, 18, 26, 34],
+      AI: [3, 11, 19, 27, 35],
+      SE: [4, 12, 20, 28, 36],
+      CE: [5, 13, 21, 29, 37],
+      SD: [6, 14, 22, 30, 38],
+      PD: [7, 15, 23, 31, 39],
+      EV: [8, 16, 24, 32, 40]
+    };
+
+    const ancoras = {
+      TF: {
+        nome: "Técnico-Funcional",
+        analise: "Indica motivação por especialização, domínio técnico e reconhecimento pela competência profissional em uma área específica.",
+        acoes: [
+          "Oferecer desafios técnicos compatíveis com a especialidade da pessoa.",
+          "Criar oportunidades de capacitação, certificação e aprofundamento profissional.",
+          "Reconhecer publicamente a contribuição técnica e a qualidade das entregas."
+        ]
+      },
+
+      GG: {
+        nome: "Gerência Geral",
+        analise: "Indica motivação por liderança, tomada de decisão, gestão de pessoas, visão sistêmica e responsabilidade sobre resultados organizacionais.",
+        acoes: [
+          "Delegar responsabilidades de coordenação e liderança.",
+          "Envolver a pessoa em decisões estratégicas e projetos interdepartamentais.",
+          "Criar trilhas de desenvolvimento gerencial e feedback sobre liderança."
+        ]
+      },
+
+      AI: {
+        nome: "Autonomia e Independência",
+        analise: "Indica motivação por liberdade para decidir como executar o trabalho, flexibilidade e menor dependência de regras rígidas.",
+        acoes: [
+          "Reduzir microgerenciamento e dar liberdade sobre métodos de trabalho.",
+          "Estabelecer metas claras, mas permitir autonomia na execução.",
+          "Oferecer projetos com maior independência e responsabilidade individual."
+        ]
+      },
+
+      SE: {
+        nome: "Segurança e Estabilidade",
+        analise: "Indica motivação por previsibilidade, estabilidade financeira, clareza de processos e ambiente profissional seguro.",
+        acoes: [
+          "Comunicar mudanças com antecedência e transparência.",
+          "Oferecer processos claros, estabilidade de função e expectativas bem definidas.",
+          "Valorizar benefícios, continuidade e planejamento de carreira."
+        ]
+      },
+
+      CE: {
+        nome: "Criatividade Empreendedora",
+        analise: "Indica motivação por criação, inovação, construção de algo próprio, iniciativa e desenvolvimento de novas ideias ou negócios.",
+        acoes: [
+          "Inserir a pessoa em projetos de inovação e melhoria de processos.",
+          "Permitir proposição de novas soluções, produtos ou métodos.",
+          "Reconhecer iniciativas autorais e dar espaço para experimentação controlada."
+        ]
+      },
+
+      SD: {
+        nome: "Serviço e Dedicação a uma Causa",
+        analise: "Indica motivação por propósito, contribuição social, ajuda aos outros e alinhamento do trabalho com valores pessoais.",
+        acoes: [
+          "Conectar as atividades da pessoa ao impacto positivo gerado pelo trabalho.",
+          "Envolver em projetos com propósito, melhoria social ou suporte a pessoas.",
+          "Reconhecer atitudes de colaboração, cuidado e contribuição coletiva."
+        ]
+      },
+
+      PD: {
+        nome: "Puro Desafio",
+        analise: "Indica motivação por problemas difíceis, superação, competição, metas ambiciosas e situações que exigem alta capacidade de resolução.",
+        acoes: [
+          "Oferecer metas desafiadoras e problemas complexos para resolver.",
+          "Criar oportunidades de atuação em projetos críticos ou de alta dificuldade.",
+          "Reconhecer conquistas associadas à superação de obstáculos."
+        ]
+      },
+
+      EV: {
+        nome: "Estilo de Vida",
+        analise: "Indica motivação por equilíbrio entre vida pessoal, familiar e profissional, valorizando flexibilidade e qualidade de vida.",
+        acoes: [
+          "Evitar sobrecarga constante e respeitar limites de jornada.",
+          "Oferecer flexibilidade quando possível, como horários ajustáveis ou trabalho híbrido.",
+          "Valorizar produtividade sustentável, não apenas disponibilidade permanente."
+        ]
+      }
+    };
+
+    function carregarDadosParticipante() {
+      dadosParticipante = JSON.parse(localStorage.getItem("dadosParticipante") || "{}");
+
+      if (!dadosParticipante.nome || !dadosParticipante.empresa || !dadosParticipante.cargo) {
+        alert("Preencha nome, empresa e cargo na página inicial antes de continuar.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      document.getElementById("infoNome").innerText = dadosParticipante.nome;
+      document.getElementById("infoEmpresa").innerText = dadosParticipante.empresa;
+      document.getElementById("infoCargo").innerText = dadosParticipante.cargo;
+    }
+
+    function montarQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+
+      perguntas.forEach((texto, index) => {
+        const numero = index + 1;
+
+        const div = document.createElement("div");
+        div.className = "question";
+
+        let html = `<div class="question-title">${numero}. ${texto}</div>`;
+        html += `<div class="radio-row">`;
+
+        for (let valor = 1; valor <= 6; valor++) {
+          html += `
+            <label class="radio-option">
+              <input type="radio" name="q${numero}" value="${valor}">
+              ${valor}
+            </label>
+          `;
+        }
+
+        html += `</div>`;
+
+        div.innerHTML = html;
+        form.appendChild(div);
+      });
+    }
+
+    function calcularResultado() {
+      const alerta = document.getElementById("alerta");
+
+      alerta.style.display = "none";
+      alerta.innerText = "";
+
+      const respostas = {};
+
+      for (let i = 1; i <= perguntas.length; i++) {
+        const resposta = document.querySelector(`input[name="q${i}"]:checked`);
+
+        if (!resposta) {
+          alerta.innerText = `Responda a questão ${i} antes de finalizar.`;
+          alerta.style.display = "block";
+          ultimoResultadoTexto = "";
+          return null;
+        }
+
+        respostas[i] = Number(resposta.value);
+      }
+
+      const pontuacao = {};
+
+      Object.keys(mapeamento).forEach(sigla => {
+        pontuacao[sigla] = mapeamento[sigla].reduce((total, numeroQuestao) => {
+          return total + respostas[numeroQuestao];
+        }, 0);
+      });
+
+      const maiorPontuacao = Math.max(...Object.values(pontuacao));
+
+      const predominantes = Object.keys(pontuacao).filter(sigla => {
+        return pontuacao[sigla] === maiorPontuacao;
+      });
+
+      montarResultadoVisual(pontuacao, predominantes);
+      gerarTextoResultado(pontuacao, predominantes, respostas);
+
+      return {
+        pontuacao: pontuacao,
+        predominantes: predominantes,
+        respostas: respostas
+      };
+    }
+
+    function montarResultadoVisual(pontuacao, predominantes) {
+      document.getElementById("resNome").innerText = dadosParticipante.nome;
+      document.getElementById("resEmpresa").innerText = dadosParticipante.empresa;
+      document.getElementById("resCargo").innerText = dadosParticipante.cargo;
+
+      const textoPredominante = predominantes
+        .map(sigla => `${sigla} - ${ancoras[sigla].nome}`)
+        .join(" | ");
+
+      document.getElementById("ancoraPredominante").innerText = textoPredominante;
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sigla</th>
+              <th>Âncora</th>
+              <th>Pontuação</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      Object.keys(pontuacao).forEach(sigla => {
+        html += `
+          <tr>
+            <td>${sigla}</td>
+            <td>${ancoras[sigla].nome}</td>
+            <td>${pontuacao[sigla]}</td>
+          </tr>
+        `;
+      });
+
+      html += `
+          </tbody>
+        </table>
+      `;
+
+      document.getElementById("tabelaPontuacao").innerHTML = html;
+
+      const analise = predominantes
+        .map(sigla => ancoras[sigla].analise)
+        .join(" ");
+
+      document.getElementById("analiseTexto").innerText = analise;
+
+      const lista = document.getElementById("acoesMotivacionais");
+      lista.innerHTML = "";
+
+      predominantes.forEach(sigla => {
+        ancoras[sigla].acoes.forEach(acao => {
+          const li = document.createElement("li");
+          li.innerText = acao;
+          lista.appendChild(li);
+        });
+      });
+
+      document.getElementById("resultado").style.display = "block";
+    }
+
+    function gerarTextoResultado(pontuacao, predominantes, respostas) {
+      const dataHora = new Date().toLocaleString("pt-BR");
+
+      const textoPredominante = predominantes
+        .map(sigla => `${sigla} - ${ancoras[sigla].nome}`)
+        .join(" | ");
+
+      let respostasTexto = "";
+
+      Object.keys(respostas).forEach(numero => {
+        respostasTexto += `Questão ${numero}: ${respostas[numero]}\n`;
+      });
+
+      let pontuacaoTexto = "";
+
+      Object.keys(pontuacao).forEach(sigla => {
+        pontuacaoTexto += `${sigla} - ${ancoras[sigla].nome}: ${pontuacao[sigla]} ponto(s)\n`;
+      });
+
+      const analise = predominantes
+        .map(sigla => ancoras[sigla].analise)
+        .join(" ");
+
+      let acoesTexto = "";
+
+      predominantes.forEach(sigla => {
+        ancoras[sigla].acoes.forEach(acao => {
+          acoesTexto += `- ${acao}\n`;
+        });
+      });
+
+      ultimoResultadoTexto =
+        `RESULTADO DAS ÂNCORAS DE CARREIRA\n\n` +
+        `Data/Hora: ${dataHora}\n` +
+        `Nome: ${dadosParticipante.nome}\n` +
+        `Empresa: ${dadosParticipante.empresa}\n` +
+        `Cargo: ${dadosParticipante.cargo}\n\n` +
+        `ÂNCORA PREDOMINANTE\n${textoPredominante}\n\n` +
+        `RESPOSTAS SELECIONADAS\n${respostasTexto}\n` +
+        `PONTUAÇÃO POR ÂNCORA\n${pontuacaoTexto}\n` +
+        `ANÁLISE OBJETIVA\n${analise}\n\n` +
+        `AÇÕES RECOMENDADAS PARA MELHORAR A MOTIVAÇÃO NO TRABALHO\n${acoesTexto}\n` +
+        `Observação: esta análise é simplificada e possui finalidade educacional.`;
+    }
+
+    function preencherFormularioEmail(resultado) {
+      const ancora = resultado.predominantes
+        .map(sigla => `${sigla} - ${ancoras[sigla].nome}`)
+        .join(" | ");
+
+      const analise = resultado.predominantes
+        .map(sigla => ancoras[sigla].analise)
+        .join(" ");
+
+      let respostasTexto = "";
+
+      Object.keys(resultado.respostas).forEach(numero => {
+        respostasTexto += `Questão ${numero}: ${resultado.respostas[numero]}\n`;
+      });
+
+      let pontuacaoTexto = "";
+
+      Object.keys(resultado.pontuacao).forEach(sigla => {
+        pontuacaoTexto += `${sigla} - ${ancoras[sigla].nome}: ${resultado.pontuacao[sigla]} ponto(s)\n`;
+      });
+
+      let acoesTexto = "";
+
+      resultado.predominantes.forEach(sigla => {
+        ancoras[sigla].acoes.forEach(acao => {
+          acoesTexto += `- ${acao}\n`;
+        });
+      });
+
+      document.getElementById("emailNome").value = dadosParticipante.nome;
+      document.getElementById("emailEmpresa").value = dadosParticipante.empresa;
+      document.getElementById("emailCargo").value = dadosParticipante.cargo;
+      document.getElementById("emailAncora").value = ancora;
+      document.getElementById("emailRespostas").value = respostasTexto;
+      document.getElementById("emailPontuacao").value = pontuacaoTexto;
+      document.getElementById("emailAnalise").value = analise;
+      document.getElementById("emailAcoes").value = acoesTexto;
+      document.getElementById("emailRelatorioCompleto").value = ultimoResultadoTexto;
+    }
+
+    function mostrarResultadoEnviarEmail() {
+      const resultado = calcularResultado();
+
+      if (!resultado) {
+        return;
+      }
+
+      preencherFormularioEmail(resultado);
+      document.getElementById("emailForm").submit();
+
+      const alerta = document.getElementById("alerta");
+      alerta.innerText = "Resultado calculado e relatório enviado por e-mail para fae.mfg@gmail.com.";
+      alerta.style.display = "block";
+
+      document.getElementById("resultado").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    function finalizarQuestionario() {
+      const resultado = calcularResultado();
+
+      if (!resultado) {
+        return;
+      }
+
+      preencherFormularioEmail(resultado);
+
+      document.getElementById("overlay").style.display = "flex";
+      document.getElementById("emailForm").submit();
+
+      setTimeout(() => {
+        localStorage.removeItem("dadosParticipante");
+        window.location.href = "index.html";
+      }, 1800);
+    }
+
+    carregarDadosParticipante();
+    montarQuiz();
+  </script>
 </body>
 </html>
