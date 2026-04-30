@@ -35,7 +35,19 @@ function gerarTextoResultado(pont,pred,respostas){let predTxt=pred.map(s=>`${s} 
 function preencherFormularioEmail(r){let anc=r.predominantes.map(s=>`${s} - ${ancoras[s].nome}`).join(' | '),analise=r.predominantes.map(s=>ancoras[s].analise).join(' '),resp='',pont='',acoes='';Object.keys(r.respostas).forEach(n=>resp+=`Questão ${n}: ${r.respostas[n]}\n`);Object.keys(r.pontuacao).forEach(s=>pont+=`${s} - ${ancoras[s].nome}: ${r.pontuacao[s]} ponto(s)\n`);r.predominantes.forEach(s=>ancoras[s].acoes.forEach(a=>acoes+=`- ${a}\n`));emailNome.value=dadosParticipante.nome;emailEmpresa.value=dadosParticipante.empresa;emailCargo.value=dadosParticipante.cargo;emailAncora.value=anc;emailRespostas.value=resp;emailPontuacao.value=pont;emailAnalise.value=analise;emailAcoes.value=acoes;emailRelatorioCompleto.value=ultimoResultadoTexto;}
 function enviarRelatorioEmail(r){preencherFormularioEmail(r);emailForm.submit();}
 function mostrarResultadoEnviarEmail(){const r=calcularResultado();if(!r)return;enviarRelatorioEmail(r);resultado.scrollIntoView({behavior:'smooth'});alerta.innerText='Resultado calculado e relatório enviado por e-mail para fae.mfg@gmail.com.';alerta.style.display='block';}
-function finalizarQuestionario(){const r=calcularResultado();if(!r)return;preencherFormularioEmail(r);overlay.style.display='flex';emailForm.submit();setTimeout(()=>{overlay.style.display='none';alerta.innerText='Resultado calculado e relatório enviado por e-mail para fae.mfg@gmail.com.';alerta.style.display='block';resultado.scrollIntoView({behavior:'smooth'});},1800);}
+function finalizarQuestionario() {
+  const resultado = calcularResultado();
+  if (!resultado) return;
+
+  preencherFormularioEmail(resultado);
+  document.getElementById("overlay").style.display = "flex";
+  document.getElementById("emailForm").submit();
+
+  setTimeout(() => {
+    localStorage.removeItem("dadosParticipante");
+    window.location.href = "index.html";
+  }, 1800);
+}
 carregarDadosParticipante();montarQuiz();
 </script>
 </body>
